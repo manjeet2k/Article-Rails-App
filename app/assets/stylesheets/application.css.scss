@@ -1,1 +1,53 @@
 @import "bootstrap/scss/bootstrap";
+@import "font-awesome";
+@import "/*";
+
+body {
+  position: relative;
+  min-height: 100vh;
+}
+
+.container {
+  max-width: 1330px;
+  padding-bottom: 70px;
+}
+
+ul {
+  list-style: none;
+}
+
+.navbar-brand {
+  color: rgb(88, 24, 69)!important;
+  font-size: xx-large;
+  letter-spacing: -3px;
+  font-weight: bolder;
+  font-style: oblique;
+}
+
+.navbar {
+  height: 100px;
+}
+
+.nav-link {
+  font-weight: bolder;
+}
+
+.nav-link .fa {
+  font-size: 22px;
+  padding: 0;
+}
+
+.nav-link:hover {
+  color: rgb(88, 24, 69)!important;
+}
+
+.flash {
+  position: absolute;
+  top: 100px;
+  z-index: 999;
+  height: 3.5rem;
+  width: 100%;
+  letter-spacing: 1px;
+  padding: 15px;
+  border-radius: 0;
+}
