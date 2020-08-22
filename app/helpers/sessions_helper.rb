@@ -8,13 +8,14 @@ module SessionsHelper
   end
 
   def require_user
-    unless logged_in?
-      flash[:danger] = "You must log in to continue..."
-      redirect_to login_path
-    end
+    redirect_to login_path, flash: { danger: "You must log in to continue..." } unless logged_in?
   end
 
   def validate_admin
     redirect_to error_path unless logged_in? && current_user.admin?
+  end
+
+  def user_opinion(article)
+    current_user.opinions.where(article_id: article.id)
   end
 end

@@ -1,0 +1,50 @@
+<div class="col-md-7 col-sm-12 mb-4 mx-auto">
+  <div class="card shadow bg-white rounded h-100">
+    <div class="card-header mb-n1">
+      <span class="mr-3"><%= link_to fa_icon("arrow-left", style: "font-size: 19px;"), root_path, class: "card-link", title: "back" %></span>
+      <span><strong>Article by: </strong> <%= @article.user.name.titleize %></span>
+      <span class="float-right"><strong>Article Date: </strong> <%= @article.created_at.strftime("%d %B") %> </span>
+    </div>
+
+    <%= image_tag @article.image.url, class: "card-img-top", style: "max-height: 350px;" %>
+
+    <div class="card-body">
+      <h3 class="text-info my-3" style="font-weight: bold;"><%= @article.name %></h3>
+      <p class="card-text"><em><%= @article.description %></em></p>
+    </div>
+
+    <div class="card-footer index-footer p-0 pb-3 bg-white" id="opinion-<%= @article.id %>">
+      <%= render "articles/opinions", article: @article %>
+    </div>
+
+    <hr class="mt-0">
+
+    <div class="comments">
+      <p class="ml-3 text-muted"> Comments</p>
+
+      <div class="col-12 mx-auto">
+        <% if @article.comments.present? %>
+          <ul class="list-group list-group-flush">
+            <% @article.comments.each do | msg | %>
+              <li class="list-group-item">
+                <strong> <%= msg.user.name %>: </strong>
+                <%= msg.comment %>
+              </li>
+            <% end %>
+          </ul>
+        <% end %>
+      </div>
+      
+      <% if logged_in? %>
+        <%= form_for Comment.new, url: comments_path do |f| %>
+          <%= f.hidden_field :user_id, value: current_user.id %>
+          <%= f.hidden_field :article_id, value: @article.id %>
+          <div class="col-12 d-flex mx-auto mb-3">
+            <%= f.text_area :comment, rows: 2, class: "form-control mr-4 ", placeholder: "write comment here..." %>
+            <%= f.submit "Comment", class: "btn btn-primary", style: "height: 50px;" %>
+          </div>          
+        <% end %>
+      <% end %>
+    </div>
+  </div>
+</div>

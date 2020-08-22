@@ -3,6 +3,7 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 ruby '2.6.6'
 
+gem "carrierwave"
 gem "font-awesome-rails" 
 gem 'hirb'
 gem 'rails', '~> 6.0.3', '>= 6.0.3.2'

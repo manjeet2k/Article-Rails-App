@@ -1,0 +1,36 @@
+<div class="card p-4 col-6 offset-3">
+  <h3><i class="fa fa-tags" aria-hidden="true"></i> Article Categories</h3>
+
+  <hr/>
+
+  <table class="table table-borderless">
+    <thead>
+      <tr>
+        <th>S.No:</th>
+        <th>Category Name</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% @categories.each_with_index do |category,i|%>
+        <tr>
+          <td><%= i+1 %></td>
+          <td><%= category.name %></td>
+          <td>
+            <a class="btn btn-info btn-sm px-3" href="food_categories/<%= category.id%>/edit" role="button" title="Edit Category">
+              <i class="fa fa-pencil" aria-hidden="true"></i>
+            </a>
+            <a class="btn btn-danger btn-sm px-3" href="/categories/<%= category.id%>" data-confirm="Are you sure?" data-method="delete" role="button" title="Delete Category">
+              <i class="fa fa-trash-o" aria-hidden="true"></i>
+            </a>
+          </td>
+        </tr>      
+      <% end %>
+    </tbody>
+  </table>
+
+  <hr/>
+  
+  <div class="text-center"><a class="btn btn-primary" href="categories/new" role="button" title="Create New Category">New Category</a></div>
+</div>

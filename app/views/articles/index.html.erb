@@ -1,0 +1,27 @@
+<% if @articles.present? %>
+  <div class="row d-flex">
+    <% @articles.each do |article| %>
+      <div class="col-md-4 col-sm-6 col-xs-12 mb-4">
+        <div class="card shadow bg-white rounded h-100">
+          <%= image_tag article.image.url, class: "card-img-top", style: "max-height: 200px;" %>
+
+          <div class="card-body index-card">
+            <h3 class="text-primary"><%= article.name %></h3>
+            <p class="card-text text-muted">
+              <em>
+                <%= article.description.truncate(55) %>
+                <%= link_to "read more", article_path(article.id), class: "card-link" %>
+              </em>
+            </p>
+          </div>
+      
+          <div class="card-footer index-footer p-0 pb-3 bg-white" id="opinion-<%= article.id %>">
+            <%= render "articles/opinions", article: article %>
+          </div>
+        </div>
+      </div>      
+    <% end %>
+  </div>
+<% else %>
+  <h4 class="text-center text-muted">No posts to show</h4>    
+<% end %>

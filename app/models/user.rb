@@ -1,25 +1,13 @@
 class User < ApplicationRecord
   has_secure_password
 
-  def new
-    @user = User.new
-  end
+  VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
 
-  def create
-    user = User.new(user_params)
+  validates :email, presence: true, length: { maximum: 80, minimum: 9 } , 
+            uniqueness: { case_sensitive: false } , format: { with: VALID_EMAIL_REGEX }  
+  validates :password, presence: true, length: { maximum: 30, minimum: 6 } , on: :create 
 
-    if user.save
-      flash[:success] = "Signed up successfully!"
-      session[:user_id] = user.id
-      redirect_to root_path
-    else
-      render "new"
-    end
-  end
-
-  private
-
-  def user_params
-    params.require(:user).permit(:name, :email, :password, :admin)
-  end
+  has_many :articles
+  has_many :opinions
+  has_many :comments
 end
