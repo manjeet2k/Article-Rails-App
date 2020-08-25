@@ -1,5 +1,5 @@
 <%= form_for @article do |form| %>
-  <div class="col-8 mx-auto">    
+  <div class="col-lg-8 col-md-12 mx-auto">    
     <div class="card">
       <div class="card-header text-center">
         <h3><%= yield(:card_header) %></h3>
@@ -36,7 +36,7 @@
         <div class="form-group row">
           <%= form.label :image, for: "image", class:"col-sm-4 col-form-label" %>
           <div class="col-sm-2 my-2">
-            <%= form.file_field :image %>          
+            <%= form.file_field :image, required: true %>          
           </div>      
         </div> 
       </div>

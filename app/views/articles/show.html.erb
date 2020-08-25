@@ -1,4 +1,4 @@
-<div class="col-md-10 col-lg-7 col-sm-12 mb-4 mx-auto">
+<div class="col-md-11 col-lg-7 col-sm-12 mb-4 mx-auto">
   <div class="card shadow bg-white rounded h-100">
     <div class="card-header mb-n1">
       <span class="mr-3"><%= link_to fa_icon("arrow-left", style: "font-size: 19px;"), root_path, class: "card-link", title: "back" %></span>
@@ -10,7 +10,7 @@
 
     <div class="card-body">
       <h6><span class="badge badge-secondary px-2"> <%= @article.category.name %></span></h3>
-      <h3 class="text-info my-3" style="font-weight: bold;"><%= @article.name %></h3>      
+      <h3 class="text-info my-3" style="font-weight: bold;"><%= @article.name.titleize %></h3>      
       <p class="card-text mt-3"><em><%= @article.description %></em></p>
     </div>
 

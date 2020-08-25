@@ -39,7 +39,7 @@
 <% if @articles.present? %>
   <div class="row d-flex">
     <% @articles.each do |article| %>
-      <div class="col-md-4 col-sm-6 col-xs-12 mb-4">
+      <div class="col-lg-4 col-md-6 col-sm-12 col-xs-12 mb-4">
         <div class="card  bg-white hoverable h-100">
           <%= image_tag article.image.url, class: "card-img-top mt-n1", style: "max-height: 200px;" %>
 
