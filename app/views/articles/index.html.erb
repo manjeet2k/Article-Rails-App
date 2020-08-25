@@ -1,13 +1,52 @@
+<div class="btn-toolbar mb-3 justify-content-center" role="toolbar" aria-label="Toolbar with button groups">
+  <form action="/articles" method="GET">  
+    <div class="btn-group mb-3 mr-2" role="group" aria-label="First group">
+
+      <%= link_to "Liked", liked_articles_path, class: "btn btn-outline-secondary" if logged_in? %>
+      <%= link_to "Commented", commented_articles_path, class: "btn btn-outline-secondary" if logged_in? %>
+
+      <select name="filter_option" class="custom-select btn" onchange="this.form.submit()">
+        <option value="">Category</option>
+
+        <% @categories.each do |category| %>
+          <% if @category && category.id == @category.id %>
+            <option value="<%= category.id %>" selected><%= category.name %></option>
+          <% else %>
+            <option value="<%= category.id %>"><%= category.name %></option>
+          <% end %>          
+        <% end %>
+      </select>
+    </div>
+  </form>
+
+  <form action="/articles" class="col-7 p-0" method="GET">
+    <div class="input-group mb-3">
+      <input type="text" name="search_name" class="form-control" placeholder="Search..." aria-label="search-box" aria-describedby="basic-addon2">
+
+      <div class="input-group-append">
+        <button class="btn btn-info" type="submit">
+          <i class="fa fa-search pr-2" aria-hidden="true"></i> Search
+        </button>
+      </div> 
+    </div>
+  </form>
+
+  <div class="btn-group" role="group" aria-label="Third group"> 
+    <%= link_to "Reset", articles_path, class: "btn btn-danger ml-3 mb-3" %>
+  </div>
+</div>
+
 <% if @articles.present? %>
   <div class="row d-flex">
     <% @articles.each do |article| %>
       <div class="col-md-4 col-sm-6 col-xs-12 mb-4">
-        <div class="card shadow bg-white rounded h-100">
-          <%= image_tag article.image.url, class: "card-img-top", style: "max-height: 200px;" %>
+        <div class="card  bg-white hoverable h-100">
+          <%= image_tag article.image.url, class: "card-img-top mt-n1", style: "max-height: 200px;" %>
 
           <div class="card-body index-card">
+            <h6><span class="badge badge-secondary px-2"> <%= article.category.name %></span></h3>
             <h3 class="text-primary"><%= article.name %></h3>
-            <p class="card-text text-muted">
+            <p class="card-text">
               <em>
                 <%= article.description.truncate(55) %>
                 <%= link_to "read more", article_path(article.id), class: "card-link" %>

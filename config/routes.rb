@@ -15,7 +15,8 @@ Rails.application.routes.draw do
   delete "logout", to:  "sessions#destroy"
 
   get "error", to: "pages#error"
-
+  get "liked_articles", to: "articles#liked_articles"
+  get "commented_articles", to: "articles#commented_articles"
 
   get "article/:id/like", to: "opinions#like", as: "article_new_like"
   get "article/:id/dislike", to: "opinions#dislike", as: "article_new_dislike"

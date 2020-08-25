@@ -4,39 +4,41 @@
   <%= "#{ "• " if (article.opinions.where(liked: true).count > 0 || article.opinions.where(disliked: true).count > 0) } " +  pluralize( article.comments.count, "Comment") if article.comments.present? && article.comments.count > 0 %>
 </div>
 
-<hr>
+<% unless !logged_in? %>
+  <hr>
 
-<% if logged_in? && article.user != current_user && user_opinion(article).present? %>
-  <%= link_to fa_icon("#{ user_opinion(article).first.liked? ? "thumbs-up" : "thumbs-o-up" }" , 
-                text: "like"
-              ), 
-        article_like_path(article.id), 
-        class: "card-link pl-3 #{ user_opinion(article).first.liked? ? "" : "text-muted" }",
-        method: :patch,
-        remote: true,
-        title: "like" 
-  %>
+  <% if article.user != current_user && user_opinion(article).present? %>
+    <%= link_to fa_icon("#{ user_opinion(article).first.liked? ? "thumbs-up" : "thumbs-o-up" }" , 
+                  text: "like"
+                ), 
+          article_like_path(article.id), 
+          class: "card-link pl-3 #{ user_opinion(article).first.liked? ? "" : "text-muted" }",
+          method: :patch,
+          remote: true,
+          title: "like" 
+    %>
 
-  <%= link_to fa_icon("#{ user_opinion(article).first.disliked? ? "thumbs-down" : "thumbs-o-down" }", 
-                text: "dislike"
-              ), 
-        article_dislike_path(article.id), 
-        class: "card-link #{ user_opinion(article).first.disliked? ? "" : "text-muted" }",
-        method: :patch,
-        remote: true,
-        title: "dislike"
-  %>  
-<% elsif logged_in? && article.user == current_user %>
-  <%= link_to fa_icon("pencil", text: "Edit Article"), edit_article_path(article.id), class: "card-link d-block mx-auto", style: "width: 130px;" %>
-<% else %>
-  <%= link_to fa_icon("thumbs-o-up", text: "like"),
-    article_new_like_path(article.id), remote: true, class: "card-link pl-3 text-muted", title: "like"
-  %>
+    <%= link_to fa_icon("#{ user_opinion(article).first.disliked? ? "thumbs-down" : "thumbs-o-down" }", 
+                  text: "dislike"
+                ), 
+          article_dislike_path(article.id), 
+          class: "card-link #{ user_opinion(article).first.disliked? ? "" : "text-muted" }",
+          method: :patch,
+          remote: true,
+          title: "dislike"
+    %>  
+  <% elsif article.user == current_user %>
+    <%= link_to fa_icon("pencil", text: "Edit Article"), edit_article_path(article.id), class: "card-link d-block mx-auto", style: "width: 130px;" %>
+  <% else %>
+    <%= link_to fa_icon("thumbs-o-up", text: "like"),
+      article_new_like_path(article.id), remote: true, class: "card-link pl-3 text-muted", title: "like"
+    %>
 
-  <%= link_to fa_icon("thumbs-o-down", 
-                text: "dislike"
-              ),
-        article_new_dislike_path(article.id),
-        class: "card-link text-muted", remote: true, title: "dislike"
-  %>
-<% end %> 
+    <%= link_to fa_icon("thumbs-o-down", 
+                  text: "dislike"
+                ),
+          article_new_dislike_path(article.id),
+          class: "card-link text-muted", remote: true, title: "dislike"
+    %>
+  <% end %> 
+<% end %>
