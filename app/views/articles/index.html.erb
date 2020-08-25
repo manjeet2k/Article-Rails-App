@@ -1,15 +1,15 @@
 <div class="btn-toolbar mb-3 justify-content-center" role="toolbar" aria-label="Toolbar with button groups">
-  <form action="/articles" method="GET">  
+  <form action="/articles" method="GET"> 
     <div class="btn-group mb-3 mr-2" role="group" aria-label="First group">
 
       <%= link_to "Liked", liked_articles_path, class: "btn btn-outline-secondary" if logged_in? %>
       <%= link_to "Commented", commented_articles_path, class: "btn btn-outline-secondary" if logged_in? %>
 
-      <select name="filter_option" class="custom-select btn" onchange="this.form.submit()">
+      <select name="filter_option" class="custom-select btn btn-outline-secondary bg-white text-dark" onchange="this.form.submit()">
         <option value="">Category</option>
 
         <% @categories.each do |category| %>
-          <% if @category && category.id == @category.id %>
+          <% if category.id == params[:filter_option].to_i %>
             <option value="<%= category.id %>" selected><%= category.name %></option>
           <% else %>
             <option value="<%= category.id %>"><%= category.name %></option>
@@ -20,12 +20,12 @@
   </form>
 
   <form action="/articles" class="col-7 p-0" method="GET">
-    <div class="input-group mb-3">
+    <div class="input-group ml-3 mb-3">
       <input type="text" name="search_name" class="form-control" placeholder="Search..." aria-label="search-box" aria-describedby="basic-addon2">
 
       <div class="input-group-append">
         <button class="btn btn-info" type="submit">
-          <i class="fa fa-search pr-2" aria-hidden="true"></i> Search
+          <i class="fa fa-search px-2" aria-hidden="true"></i>
         </button>
       </div> 
     </div>
@@ -45,7 +45,7 @@
 
           <div class="card-body index-card">
             <h6><span class="badge badge-secondary px-2"> <%= article.category.name %></span></h3>
-            <h3 class="text-primary"><%= article.name %></h3>
+            <h3 class="text-primary"><%= article.name.titleize %></h3>
             <p class="card-text">
               <em>
                 <%= article.description.truncate(55) %>

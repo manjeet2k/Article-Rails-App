@@ -2,16 +2,17 @@ class ArticlesController < ApplicationController
   before_action :require_user, except: [:index, :show]
   before_action :set_categories, except: [:show, :update, :destroy]
 
-  def index
-    @articles = Article.all
-  
+  def index  
     if params[:filter_option]
       return redirect_to articles_path if params[:filter_option] == ""
-      @category = Category.find params[:filter_option]
-      @articles = Article.where(category_id: @category.id)
+      @articles = Article.where(category_id: params[:filter_option])
+      return
     elsif params[:search_name] 
-      @articles = Article.where("name LIKE ?", "%#{params[:search_name]}%")
+      @articles = Article.where("name LIKE ?", "%#{params[:search_name].downcase}%")
+      return
     end
+
+    @articles = Article.all
   end
 
   def new
@@ -62,12 +63,18 @@ class ArticlesController < ApplicationController
     render "index"
   end
 
-  def category_filters
-    render "index"
-  end
+  def download
+    @articles = current_user.articles
 
-  def search
-    render "index"
+    respond_to do |format|
+      format.pdf do
+        pdf = RandomName.new(current_user)
+        send_data pdf.render,
+          filename: "export.pdf",
+          type: 'application/pdf',
+          disposition: 'inline'
+      end
+    end
   end
 
   private

@@ -23,4 +23,5 @@ Rails.application.routes.draw do
 
   patch "article/:id/like", to: "opinions#like", as: "article_like"
   patch "article/:id/dislike", to: "opinions#dislike", as: "article_dislike"
+  get "download", to: "articles#download"
 end

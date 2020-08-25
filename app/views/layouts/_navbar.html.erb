@@ -7,6 +7,7 @@
     <% if logged_in? %>
       <ul class="navbar-nav ml-auto">
         <%= link_to fa_icon("plus", text: "New Article", class: "mr-1", style: "font-size: 18px;"), new_article_path, class: "nav-link", title: "Create new article" unless current_user.admin? %>
+        <%= link_to fa_icon("download", text: "Download PDF", class: "mr-1", style: "font-size: 18px;"), download_path(format: 'pdf'), class: "nav-link", title: "download pdf" unless current_user.admin?  %>
         <%= link_to fa_icon("plus", text: "New Category", class: "mr-1", style: "font-size: 18px;"), new_category_path, class: "nav-link", title: "Create new category" if current_user.admin? %>
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

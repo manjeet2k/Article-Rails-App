@@ -12,14 +12,17 @@
 
 ActiveRecord::Schema.define(version: 2020_08_18_125616) do
 
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
   create_table "articles", force: :cascade do |t|
     t.string "name"
     t.string "description"
-    t.integer "user_id", null: false
+    t.bigint "user_id", null: false
     t.string "image"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.integer "category_id", null: false
+    t.bigint "category_id", null: false
     t.index ["category_id"], name: "index_articles_on_category_id"
     t.index ["user_id"], name: "index_articles_on_user_id"
   end
@@ -31,8 +34,8 @@ ActiveRecord::Schema.define(version: 2020_08_18_125616) do
   end
 
   create_table "comments", force: :cascade do |t|
-    t.integer "user_id", null: false
-    t.integer "article_id", null: false
+    t.bigint "user_id", null: false
+    t.bigint "article_id", null: false
     t.string "comment"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
@@ -41,8 +44,8 @@ ActiveRecord::Schema.define(version: 2020_08_18_125616) do
   end
 
   create_table "opinions", force: :cascade do |t|
-    t.integer "user_id", null: false
-    t.integer "article_id"
+    t.bigint "user_id", null: false
+    t.bigint "article_id"
     t.boolean "liked", default: false
     t.boolean "disliked", default: false
     t.datetime "created_at", precision: 6, null: false
